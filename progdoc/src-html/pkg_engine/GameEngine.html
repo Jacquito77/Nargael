@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="fr">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package pkg_engine;<a name="line.1"></a>
+<span class="sourceLineNo">002</span>import java.util.HashMap;<a name="line.2"></a>
+<span class="sourceLineNo">003</span>import java.util.Stack;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import java.util.Scanner;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import javax.swing.Timer;<a name="line.5"></a>
+<span class="sourceLineNo">006</span>import java.io.File;<a name="line.6"></a>
+<span class="sourceLineNo">007</span>import javax.swing.JButton;<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span>import pkg_rooms.Room;  <a name="line.9"></a>
+<span class="sourceLineNo">010</span>import pkg_rooms.TransporterRoom;  <a name="line.10"></a>
+<span class="sourceLineNo">011</span>import pkg_commands.Command;  <a name="line.11"></a>
+<span class="sourceLineNo">012</span>import pkg_commands.Parser; <a name="line.12"></a>
+<span class="sourceLineNo">013</span>import pkg_items.Item;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import pkg_items.Beamer;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import pkg_rooms.NPC;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import pkg_rooms.NPCList;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import pkg_rooms.MovingNPC;<a name="line.17"></a>
+<span class="sourceLineNo">018</span><a name="line.18"></a>
+<span class="sourceLineNo">019</span>/**<a name="line.19"></a>
+<span class="sourceLineNo">020</span> * Décrivez votre classe GameEngine ici.<a name="line.20"></a>
+<span class="sourceLineNo">021</span> *<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * @author Baptiste HULIN<a name="line.22"></a>
+<span class="sourceLineNo">023</span> * @version (un numéro de version ou une date)<a name="line.23"></a>
+<span class="sourceLineNo">024</span> */<a name="line.24"></a>
+<span class="sourceLineNo">025</span>public class GameEngine<a name="line.25"></a>
+<span class="sourceLineNo">026</span>{<a name="line.26"></a>
+<span class="sourceLineNo">027</span>    public static Parser aParser;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>    public static UserInterface aGUI;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>    private static HashMap&lt;String, Room&gt; aList;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>    private static Player aPlayer;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>    //    private static Timer aTimeLimit;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>    private static MovingNPC aJuju;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>    private static int aLimit;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    public static boolean aTestMode;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>    public static TransporterRoom aTR;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>    <a name="line.36"></a>
+<span class="sourceLineNo">037</span>    /**<a name="line.37"></a>
+<span class="sourceLineNo">038</span>     * Constructeur pour les objets de la classe GameEngine<a name="line.38"></a>
+<span class="sourceLineNo">039</span>     */<a name="line.39"></a>
+<span class="sourceLineNo">040</span>    public GameEngine()<a name="line.40"></a>
+<span class="sourceLineNo">041</span>    {<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        this.aPlayer = new Player();<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        this.aList = new HashMap&lt;String, Room&gt;();<a name="line.43"></a>
+<span class="sourceLineNo">044</span>        this.aParser = new Parser ();<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        this.createRooms();<a name="line.45"></a>
+<span class="sourceLineNo">046</span>        //         this.aTimeLimit = new Timer (60000,null);<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        this.aLimit = 60;<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        aTestMode = false;<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    }<a name="line.49"></a>
+<span class="sourceLineNo">050</span><a name="line.50"></a>
+<span class="sourceLineNo">051</span>     /**<a name="line.51"></a>
+<span class="sourceLineNo">052</span>     * Choix de l'interface du jeu et message de présentation du jeu<a name="line.52"></a>
+<span class="sourceLineNo">053</span>     */<a name="line.53"></a>
+<span class="sourceLineNo">054</span>    public void setGUI(final UserInterface pUI)<a name="line.54"></a>
+<span class="sourceLineNo">055</span>    {<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        aGUI = pUI;<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        printWelcome();<a name="line.57"></a>
+<span class="sourceLineNo">058</span>    }<a name="line.58"></a>
+<span class="sourceLineNo">059</span><a name="line.59"></a>
+<span class="sourceLineNo">060</span>    /**<a name="line.60"></a>
+<span class="sourceLineNo">061</span>     * Affiche un message de bienvenue au joueur<a name="line.61"></a>
+<span class="sourceLineNo">062</span>     */<a name="line.62"></a>
+<span class="sourceLineNo">063</span>    private void printWelcome()<a name="line.63"></a>
+<span class="sourceLineNo">064</span>    {<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        aGUI.println ("Welcome to MorneFosse, may the force be with you !");<a name="line.65"></a>
+<span class="sourceLineNo">066</span>        aGUI.println ("Write 'help' if it's your first travel in this place!");<a name="line.66"></a>
+<span class="sourceLineNo">067</span>        aGUI.println ("Don't forget to complete your quest before the evening");<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        aGUI.print(aPlayer.getCurrentRoom().getLongDescription());<a name="line.68"></a>
+<span class="sourceLineNo">069</span>        aGUI.showImage(aPlayer.getCurrentRoom().getImageName());<a name="line.69"></a>
+<span class="sourceLineNo">070</span>    } // affiche un message de bienvenue une seule fois au début<a name="line.70"></a>
+<span class="sourceLineNo">071</span><a name="line.71"></a>
+<span class="sourceLineNo">072</span>    /**<a name="line.72"></a>
+<span class="sourceLineNo">073</span>     * Procédure qui permet la création des différentes salles du jeu et leurs sorties<a name="line.73"></a>
+<span class="sourceLineNo">074</span>     */<a name="line.74"></a>
+<span class="sourceLineNo">075</span>    public void createRooms ()<a name="line.75"></a>
+<span class="sourceLineNo">076</span>    {<a name="line.76"></a>
+<span class="sourceLineNo">077</span><a name="line.77"></a>
+<span class="sourceLineNo">078</span>        //1 créer les 5 lieux ci-dessous<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        Room vResidential_District= new Room("at the Residential District", "images/Res.jpeg");<a name="line.79"></a>
+<span class="sourceLineNo">080</span>        Room vOperating_Tower= new Room("in the Operating Tower (first floor)", "images/Op1.jpeg" ); <a name="line.80"></a>
+<span class="sourceLineNo">081</span>        Room vOperating_Tower2ndf= new Room("in the Operating Tower (second floor)", "images/Op2.jpeg" );<a name="line.81"></a>
+<span class="sourceLineNo">082</span>        Room vOperating_Tower3rdf= new Room("in the Operating Tower (third floor)", "images/Op3.jpeg");<a name="line.82"></a>
+<span class="sourceLineNo">083</span>        Room vForge= new Room("in the Forge", "images/forge.jpeg");<a name="line.83"></a>
+<span class="sourceLineNo">084</span>        Room vTavern= new Room("in the Tavern", "images/tavern.jpeg" ); <a name="line.84"></a>
+<span class="sourceLineNo">085</span>        Room vTraining_Field= new Room( "in the Training Field", "images/trainingf.jpeg");<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        Room vSteel_Department= new Room ("in the Steel Department", "images/steeld.jpeg");<a name="line.86"></a>
+<span class="sourceLineNo">087</span>        Room vTannery = new Room ("in front of the Tannery", "images/tannery.jpg");<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        Room vCommercial_District = new Room ("at the Commercial District", "images/commerc.jpeg");<a name="line.88"></a>
+<span class="sourceLineNo">089</span>        Room vCity_Center = new Room ("at the City Center", "images/cityc.jpeg");<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        Room vWest_Gate = new Room ("at the West Gate", "images/westg.jpeg");<a name="line.90"></a>
+<span class="sourceLineNo">091</span>        Room vSouth_Gate = new TransporterRoom ("at the South Gate", "images/southg.jpg");<a name="line.91"></a>
+<span class="sourceLineNo">092</span>        Room vEast_Gate = new Room ("at the East Gate", "images/eastg.jpeg");<a name="line.92"></a>
+<span class="sourceLineNo">093</span>        Room vNorth_Gate = new Room ("at the North Gate", "images/northg.jpeg");<a name="line.93"></a>
+<span class="sourceLineNo">094</span><a name="line.94"></a>
+<span class="sourceLineNo">095</span>        //2 positionner les sorties pour créer le "réseau" de lieux<a name="line.95"></a>
+<span class="sourceLineNo">096</span>        // _pDir, pRoom<a name="line.96"></a>
+<span class="sourceLineNo">097</span><a name="line.97"></a>
+<span class="sourceLineNo">098</span>        vResidential_District.setExit("north", vNorth_Gate);<a name="line.98"></a>
+<span class="sourceLineNo">099</span>        vResidential_District.setExit("south", vOperating_Tower);<a name="line.99"></a>
+<span class="sourceLineNo">100</span>        vResidential_District.setExit("west", vCommercial_District);<a name="line.100"></a>
+<span class="sourceLineNo">101</span>        vResidential_District.setExit("east", vEast_Gate);<a name="line.101"></a>
+<span class="sourceLineNo">102</span><a name="line.102"></a>
+<span class="sourceLineNo">103</span>        vOperating_Tower.setExit("north",vResidential_District);<a name="line.103"></a>
+<span class="sourceLineNo">104</span>        vOperating_Tower.setExit("south",vForge);<a name="line.104"></a>
+<span class="sourceLineNo">105</span>        vOperating_Tower.setExit("west",vCity_Center);<a name="line.105"></a>
+<span class="sourceLineNo">106</span>        vOperating_Tower.setExit("east",vEast_Gate);<a name="line.106"></a>
+<span class="sourceLineNo">107</span>        vOperating_Tower.setExit("up",vOperating_Tower2ndf);<a name="line.107"></a>
+<span class="sourceLineNo">108</span><a name="line.108"></a>
+<span class="sourceLineNo">109</span>        vOperating_Tower2ndf.setExit("down",vOperating_Tower);<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        vOperating_Tower2ndf.setExit("up",vOperating_Tower3rdf);<a name="line.110"></a>
+<span class="sourceLineNo">111</span><a name="line.111"></a>
+<span class="sourceLineNo">112</span>        vOperating_Tower3rdf.setExit("down", vOperating_Tower2ndf);<a name="line.112"></a>
+<span class="sourceLineNo">113</span><a name="line.113"></a>
+<span class="sourceLineNo">114</span>        vForge.setExit("north",vOperating_Tower);<a name="line.114"></a>
+<span class="sourceLineNo">115</span>        vForge.setExit("south",vSouth_Gate);<a name="line.115"></a>
+<span class="sourceLineNo">116</span>        vForge.setExit("west",vTavern);<a name="line.116"></a>
+<span class="sourceLineNo">117</span>        vForge.setExit("east",vEast_Gate);<a name="line.117"></a>
+<span class="sourceLineNo">118</span><a name="line.118"></a>
+<span class="sourceLineNo">119</span>        vTavern.setExit("north",vCity_Center);<a name="line.119"></a>
+<span class="sourceLineNo">120</span>        vTavern.setExit("south",vSouth_Gate);<a name="line.120"></a>
+<span class="sourceLineNo">121</span>        vTavern.setExit("west",vTraining_Field);<a name="line.121"></a>
+<span class="sourceLineNo">122</span>        vTavern.setExit("east",vForge);<a name="line.122"></a>
+<span class="sourceLineNo">123</span><a name="line.123"></a>
+<span class="sourceLineNo">124</span>        vTraining_Field.setExit("north",vSteel_Department);<a name="line.124"></a>
+<span class="sourceLineNo">125</span>        vTraining_Field.setExit("south",vSouth_Gate);<a name="line.125"></a>
+<span class="sourceLineNo">126</span>        vTraining_Field.setExit("west",vWest_Gate);<a name="line.126"></a>
+<span class="sourceLineNo">127</span>        vTraining_Field.setExit("east",vTavern);<a name="line.127"></a>
+<span class="sourceLineNo">128</span><a name="line.128"></a>
+<span class="sourceLineNo">129</span>        vSteel_Department.setExit("north",vTannery);<a name="line.129"></a>
+<span class="sourceLineNo">130</span>        vSteel_Department.setExit("south",vTraining_Field);<a name="line.130"></a>
+<span class="sourceLineNo">131</span>        vSteel_Department.setExit("west",vWest_Gate);<a name="line.131"></a>
+<span class="sourceLineNo">132</span>        vSteel_Department.setExit("east",vCity_Center);<a name="line.132"></a>
+<span class="sourceLineNo">133</span><a name="line.133"></a>
+<span class="sourceLineNo">134</span>        vTannery.setExit("north",vNorth_Gate);<a name="line.134"></a>
+<span class="sourceLineNo">135</span>        vTannery.setExit("south",vSteel_Department);<a name="line.135"></a>
+<span class="sourceLineNo">136</span>        vTannery.setExit("west",vWest_Gate);<a name="line.136"></a>
+<span class="sourceLineNo">137</span>        vTannery.setExit("east",vCommercial_District);<a name="line.137"></a>
+<span class="sourceLineNo">138</span><a name="line.138"></a>
+<span class="sourceLineNo">139</span>        vCommercial_District.setExit("north",vNorth_Gate);<a name="line.139"></a>
+<span class="sourceLineNo">140</span>        vCommercial_District.setExit("south",vCity_Center);<a name="line.140"></a>
+<span class="sourceLineNo">141</span>        vCommercial_District.setExit("west",vTannery);<a name="line.141"></a>
+<span class="sourceLineNo">142</span>        vCommercial_District.setExit("east",vResidential_District);<a name="line.142"></a>
+<span class="sourceLineNo">143</span><a name="line.143"></a>
+<span class="sourceLineNo">144</span>        vCity_Center.setExit("north",vCommercial_District);<a name="line.144"></a>
+<span class="sourceLineNo">145</span>        vCity_Center.setExit("south",vTavern);<a name="line.145"></a>
+<span class="sourceLineNo">146</span>        vCity_Center.setExit("west",vSteel_Department);<a name="line.146"></a>
+<span class="sourceLineNo">147</span>        vCity_Center.setExit("east",vOperating_Tower);<a name="line.147"></a>
+<span class="sourceLineNo">148</span><a name="line.148"></a>
+<span class="sourceLineNo">149</span>        vWest_Gate.setExit("north",vTannery);<a name="line.149"></a>
+<span class="sourceLineNo">150</span>        vWest_Gate.setExit("south",vTraining_Field);<a name="line.150"></a>
+<span class="sourceLineNo">151</span>        vWest_Gate.setExit("west",vEast_Gate);<a name="line.151"></a>
+<span class="sourceLineNo">152</span>        vWest_Gate.setExit("east",vSteel_Department);<a name="line.152"></a>
+<span class="sourceLineNo">153</span><a name="line.153"></a>
+<span class="sourceLineNo">154</span>        vSouth_Gate.setExit("north",vTavern);<a name="line.154"></a>
+<span class="sourceLineNo">155</span>        vSouth_Gate.setExit("south",vNorth_Gate);<a name="line.155"></a>
+<span class="sourceLineNo">156</span>        vSouth_Gate.setExit("west",vTraining_Field);<a name="line.156"></a>
+<span class="sourceLineNo">157</span>        vSouth_Gate.setExit("east",vForge);<a name="line.157"></a>
+<span class="sourceLineNo">158</span><a name="line.158"></a>
+<span class="sourceLineNo">159</span>        vEast_Gate.setExit("north",vResidential_District);<a name="line.159"></a>
+<span class="sourceLineNo">160</span>        vEast_Gate.setExit("south",vForge);<a name="line.160"></a>
+<span class="sourceLineNo">161</span>        vEast_Gate.setExit("west",vOperating_Tower);<a name="line.161"></a>
+<span class="sourceLineNo">162</span>        vEast_Gate.setExit("east",vWest_Gate);<a name="line.162"></a>
+<span class="sourceLineNo">163</span><a name="line.163"></a>
+<span class="sourceLineNo">164</span>        vNorth_Gate.setExit("north",vSouth_Gate);<a name="line.164"></a>
+<span class="sourceLineNo">165</span>        vNorth_Gate.setExit("south",vCommercial_District);<a name="line.165"></a>
+<span class="sourceLineNo">166</span>        vNorth_Gate.setExit("west",vTannery);<a name="line.166"></a>
+<span class="sourceLineNo">167</span>        vNorth_Gate.setExit("east",vResidential_District);<a name="line.167"></a>
+<span class="sourceLineNo">168</span><a name="line.168"></a>
+<span class="sourceLineNo">169</span>        //3 initialiser le lieu courant<a name="line.169"></a>
+<span class="sourceLineNo">170</span><a name="line.170"></a>
+<span class="sourceLineNo">171</span>        this.aPlayer.setCurrentRoom(vResidential_District);<a name="line.171"></a>
+<span class="sourceLineNo">172</span><a name="line.172"></a>
+<span class="sourceLineNo">173</span>        //4 Liste les salles dans la HashMap<a name="line.173"></a>
+<span class="sourceLineNo">174</span>        aList.put("Residential District",vResidential_District);<a name="line.174"></a>
+<span class="sourceLineNo">175</span>        aList.put("Operating Tower (1st floor)",vOperating_Tower);<a name="line.175"></a>
+<span class="sourceLineNo">176</span>        aList.put("Operating Tower (2nd floor)",vOperating_Tower2ndf);<a name="line.176"></a>
+<span class="sourceLineNo">177</span>        aList.put("Operating Tower (3rd floor)",vOperating_Tower3rdf);<a name="line.177"></a>
+<span class="sourceLineNo">178</span>        aList.put("Forge",vForge);<a name="line.178"></a>
+<span class="sourceLineNo">179</span>        aList.put("Tavern",vTavern);<a name="line.179"></a>
+<span class="sourceLineNo">180</span>        aList.put("Training Field",vTraining_Field);<a name="line.180"></a>
+<span class="sourceLineNo">181</span>        aList.put("Steel Department",vSteel_Department);<a name="line.181"></a>
+<span class="sourceLineNo">182</span>        aList.put("Tannery",vTannery);<a name="line.182"></a>
+<span class="sourceLineNo">183</span>        aList.put("Commercial District",vCommercial_District);<a name="line.183"></a>
+<span class="sourceLineNo">184</span>        aList.put("City Center",vCity_Center);<a name="line.184"></a>
+<span class="sourceLineNo">185</span>        aList.put("West Gate",vWest_Gate);<a name="line.185"></a>
+<span class="sourceLineNo">186</span>        aList.put("South Gate",vSouth_Gate);<a name="line.186"></a>
+<span class="sourceLineNo">187</span>        aList.put("East Gate",vEast_Gate);<a name="line.187"></a>
+<span class="sourceLineNo">188</span>        aList.put("North Gate",vNorth_Gate);<a name="line.188"></a>
+<span class="sourceLineNo">189</span><a name="line.189"></a>
+<span class="sourceLineNo">190</span>        //5 ajoute les objets de chaque Room<a name="line.190"></a>
+<span class="sourceLineNo">191</span><a name="line.191"></a>
+<span class="sourceLineNo">192</span>        Item vSword = new Item("Sword", 360, "Badass sword forged by your dog");<a name="line.192"></a>
+<span class="sourceLineNo">193</span>        Item vIce_Cream = new Item("Ice Cream", 20, "Soooooo tasty !");<a name="line.193"></a>
+<span class="sourceLineNo">194</span>        Item vLeather = new Item("Leather Strip", 50, "A piece of leather, you should be able" +<a name="line.194"></a>
+<span class="sourceLineNo">195</span>                "to do something with it");<a name="line.195"></a>
+<span class="sourceLineNo">196</span>        Item vBurger = new Item("Fosse Burger", 30, "The biggest burger in the country");<a name="line.196"></a>
+<span class="sourceLineNo">197</span>        Item vArmory = new Item("Armory", 1200, "It's an armory, lol");<a name="line.197"></a>
+<span class="sourceLineNo">198</span>        Item vBeer = new Item("Beer", 50, "A big beer stein, like you love!");<a name="line.198"></a>
+<span class="sourceLineNo">199</span>        Item vMagicCookie = new Item("Magic_Cookie", 10, "A strange light shine from this cookie");<a name="line.199"></a>
+<span class="sourceLineNo">200</span>        Beamer vBeamer = new Beamer("Beamer", 50, "An item to teleport yourself");<a name="line.200"></a>
+<span class="sourceLineNo">201</span>        Item vDrawer = new Item("Drawer", 100, "A drawer, it seems possible to pull it");<a name="line.201"></a>
+<span class="sourceLineNo">202</span>        Item vStraw = new Item("Straw", 9999, "A stack of straw, maybe you could try to search in it");<a name="line.202"></a>
+<span class="sourceLineNo">203</span>        Item vAxe = new Item("Axe", 450, "A short sharped and heavy black axe");<a name="line.203"></a>
+<span class="sourceLineNo">204</span>        Item vCertificate = new Item("Certificate", 1, "A certificate that attests the non-rarity of the leather");<a name="line.204"></a>
+<span class="sourceLineNo">205</span>        Item vKnob = new Item("Knob", 10, "A knob");<a name="line.205"></a>
+<span class="sourceLineNo">206</span>        <a name="line.206"></a>
+<span class="sourceLineNo">207</span>        Item vLeather2 = new Item("Leather", 30, "Leather");<a name="line.207"></a>
+<span class="sourceLineNo">208</span>        <a name="line.208"></a>
+<span class="sourceLineNo">209</span>        NPC vBourgeois = new NPC("Bourgeois") {<a name="line.209"></a>
+<span class="sourceLineNo">210</span>            public boolean onGive (final Item pItem) <a name="line.210"></a>
+<span class="sourceLineNo">211</span>            {<a name="line.211"></a>
+<span class="sourceLineNo">212</span>                if (pItem.getItemName().equals("Certificate")) {<a name="line.212"></a>
+<span class="sourceLineNo">213</span>                    aGUI.println ("[Bourgeois says:] This leather isn't rare at all, then, take it !"); <a name="line.213"></a>
+<span class="sourceLineNo">214</span>                    aGUI.println ("The Bourgeois gave you Leather"); <a name="line.214"></a>
+<span class="sourceLineNo">215</span>                    aPlayer.getInventory().addItem("Leather", vLeather2);<a name="line.215"></a>
+<span class="sourceLineNo">216</span>                    return true; <a name="line.216"></a>
+<span class="sourceLineNo">217</span>                } else {<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                    aGUI.println ("[Bourgeois says:] I won't let you my Leather, it is so rare "); <a name="line.218"></a>
+<span class="sourceLineNo">219</span>                    return false; <a name="line.219"></a>
+<span class="sourceLineNo">220</span>                }<a name="line.220"></a>
+<span class="sourceLineNo">221</span>            }<a name="line.221"></a>
+<span class="sourceLineNo">222</span>        };<a name="line.222"></a>
+<span class="sourceLineNo">223</span>        NPC vDurothan = new NPC("Durothan") {<a name="line.223"></a>
+<span class="sourceLineNo">224</span>            public boolean onGive (final Item pItem) <a name="line.224"></a>
+<span class="sourceLineNo">225</span>            {<a name="line.225"></a>
+<span class="sourceLineNo">226</span>                if (pItem.getItemName() == "Fosse Burger") {<a name="line.226"></a>
+<span class="sourceLineNo">227</span>                    aGUI.println ("[Durothan says:] Mhhh... What a wonderful burger."); <a name="line.227"></a>
+<span class="sourceLineNo">228</span>                    ///<a name="line.228"></a>
+<span class="sourceLineNo">229</span>                    return true; <a name="line.229"></a>
+<span class="sourceLineNo">230</span>                }<a name="line.230"></a>
+<span class="sourceLineNo">231</span>                 if (pItem.getItemName() == "Knob") {<a name="line.231"></a>
+<span class="sourceLineNo">232</span>                    aGUI.println ("[Durothan says:] Mhhh... I will craft your Sword with the Blade I just crafted"); <a name="line.232"></a>
+<span class="sourceLineNo">233</span>                    ///<a name="line.233"></a>
+<span class="sourceLineNo">234</span>                    aGUI.println ("YOU HAVE WON, CONGRATULATIONS");<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                    aGUI.enable(false);<a name="line.235"></a>
+<span class="sourceLineNo">236</span>                    <a name="line.236"></a>
+<span class="sourceLineNo">237</span>                    return true; <a name="line.237"></a>
+<span class="sourceLineNo">238</span>                }<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                else {<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                    aGUI.println ("[Durothan says:] I don't want this"); <a name="line.240"></a>
+<span class="sourceLineNo">241</span>                    return false; <a name="line.241"></a>
+<span class="sourceLineNo">242</span>                }<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                <a name="line.243"></a>
+<span class="sourceLineNo">244</span>                <a name="line.244"></a>
+<span class="sourceLineNo">245</span>            }<a name="line.245"></a>
+<span class="sourceLineNo">246</span>        };<a name="line.246"></a>
+<span class="sourceLineNo">247</span>        NPC vTensen = new NPC("Tensen"){<a name="line.247"></a>
+<span class="sourceLineNo">248</span>            public void onTalk () <a name="line.248"></a>
+<span class="sourceLineNo">249</span>            {<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                aGUI.println("Tensen gave you a Certificate !");    <a name="line.250"></a>
+<span class="sourceLineNo">251</span>                aPlayer.getInventory().addItem("Certificate", vCertificate);         <a name="line.251"></a>
+<span class="sourceLineNo">252</span>            }<a name="line.252"></a>
+<span class="sourceLineNo">253</span>        };<a name="line.253"></a>
+<span class="sourceLineNo">254</span>        NPC vHina = new NPC("Hina"){<a name="line.254"></a>
+<span class="sourceLineNo">255</span>            public boolean onGive (final Item pItem) <a name="line.255"></a>
+<span class="sourceLineNo">256</span>            {<a name="line.256"></a>
+<span class="sourceLineNo">257</span>                if (pItem.getItemName().equals("Leather")) {<a name="line.257"></a>
+<span class="sourceLineNo">258</span>                    aGUI.println ("[Hina says:] Let me just... Okay, take this knob."); <a name="line.258"></a>
+<span class="sourceLineNo">259</span>                    aGUI.println ("Hina gave you a Knob, go back and talk to Durothan to win the game !");<a name="line.259"></a>
+<span class="sourceLineNo">260</span>                    <a name="line.260"></a>
+<span class="sourceLineNo">261</span>                    aPlayer.getInventory().addItem("Knob", vKnob);<a name="line.261"></a>
+<span class="sourceLineNo">262</span>                    aPlayer.getInventory().itemTaken("Leather");<a name="line.262"></a>
+<span class="sourceLineNo">263</span>                    return true; <a name="line.263"></a>
+<span class="sourceLineNo">264</span>                } else {<a name="line.264"></a>
+<span class="sourceLineNo">265</span>                    aGUI.println ("[Hina says:] I don't need this !"); <a name="line.265"></a>
+<span class="sourceLineNo">266</span>                    return false; <a name="line.266"></a>
+<span class="sourceLineNo">267</span>                }<a name="line.267"></a>
+<span class="sourceLineNo">268</span>            }<a name="line.268"></a>
+<span class="sourceLineNo">269</span>        };<a name="line.269"></a>
+<span class="sourceLineNo">270</span>        NPC vKoh = new NPC("Koh");<a name="line.270"></a>
+<span class="sourceLineNo">271</span>        aJuju = new MovingNPC("Moving JUJU");<a name="line.271"></a>
+<span class="sourceLineNo">272</span><a name="line.272"></a>
+<span class="sourceLineNo">273</span>        aJuju.setCurrentRoom(vResidential_District);<a name="line.273"></a>
+<span class="sourceLineNo">274</span><a name="line.274"></a>
+<span class="sourceLineNo">275</span>        vDurothan.setText("[Durothan says:] Hello brave adventurer, you should seek for the guard Tensen at the Training Field, he will give you some Leather, go to the west.");<a name="line.275"></a>
+<span class="sourceLineNo">276</span>        vTensen.setText("[Tensen says:] We've just hunted these common monsters but a Bourgeois bought it, show the Bourgeois this certificate to prove this Leather is common.");<a name="line.276"></a>
+<span class="sourceLineNo">277</span>        vHina.setText("[Hina says:] Do you need some help ? I can craft you a Knob if you give me some Leather");<a name="line.277"></a>
+<span class="sourceLineNo">278</span>        vKoh.setText ("I am useless");<a name="line.278"></a>
+<span class="sourceLineNo">279</span>        vBourgeois.setText("[Bourgeois says:] Hello, I won't let you my Leather, it is so rare!");<a name="line.279"></a>
+<span class="sourceLineNo">280</span><a name="line.280"></a>
+<span class="sourceLineNo">281</span>        vSteel_Department.addItemRoom("Beamer", vBeamer);<a name="line.281"></a>
+<span class="sourceLineNo">282</span>        vCommercial_District.addItemRoom("Burger", vBurger);<a name="line.282"></a>
+<span class="sourceLineNo">283</span>        vResidential_District.addItemRoom("Sword", vSword);<a name="line.283"></a>
+<span class="sourceLineNo">284</span>        vOperating_Tower2ndf.addItemRoom("Axe", vAxe);<a name="line.284"></a>
+<span class="sourceLineNo">285</span>        vOperating_Tower2ndf.addItemRoom("Straw", vStraw);<a name="line.285"></a>
+<span class="sourceLineNo">286</span>        vTavern.addItemRoom("Armory", vArmory);<a name="line.286"></a>
+<span class="sourceLineNo">287</span>        vTavern.addItemRoom("Beer", vBeer);<a name="line.287"></a>
+<span class="sourceLineNo">288</span>        vTraining_Field.addItemRoom("Magic_Cookie", vMagicCookie);<a name="line.288"></a>
+<span class="sourceLineNo">289</span><a name="line.289"></a>
+<span class="sourceLineNo">290</span>        vForge.addNPCRoom("Durothan", vDurothan);<a name="line.290"></a>
+<span class="sourceLineNo">291</span>        vTraining_Field.addNPCRoom("Tensen", vTensen);<a name="line.291"></a>
+<span class="sourceLineNo">292</span>        vTannery.addNPCRoom("Hina", vHina);<a name="line.292"></a>
+<span class="sourceLineNo">293</span>        vSteel_Department.addNPCRoom("Koh", vKoh);<a name="line.293"></a>
+<span class="sourceLineNo">294</span>        vResidential_District.addNPCRoom("Moving JUJU", aJuju);<a name="line.294"></a>
+<span class="sourceLineNo">295</span>        vCommercial_District.addNPCRoom("Bourgeois", vBourgeois);<a name="line.295"></a>
+<span class="sourceLineNo">296</span><a name="line.296"></a>
+<span class="sourceLineNo">297</span>    }<a name="line.297"></a>
+<span class="sourceLineNo">298</span><a name="line.298"></a>
+<span class="sourceLineNo">299</span>    /**<a name="line.299"></a>
+<span class="sourceLineNo">300</span>     * Procédure permettant d'exécuter la commande associée à la String entrée en paramètre<a name="line.300"></a>
+<span class="sourceLineNo">301</span>     */<a name="line.301"></a>
+<span class="sourceLineNo">302</span>    public static void interpretCommand(final String pCommandLine) <a name="line.302"></a>
+<span class="sourceLineNo">303</span>    {<a name="line.303"></a>
+<span class="sourceLineNo">304</span>        aGUI.println(pCommandLine);<a name="line.304"></a>
+<span class="sourceLineNo">305</span>        Command vCommand = aParser.getCommand(pCommandLine);<a name="line.305"></a>
+<span class="sourceLineNo">306</span><a name="line.306"></a>
+<span class="sourceLineNo">307</span>        if (vCommand != null)<a name="line.307"></a>
+<span class="sourceLineNo">308</span>        {<a name="line.308"></a>
+<span class="sourceLineNo">309</span>            vCommand.execute(aPlayer);<a name="line.309"></a>
+<span class="sourceLineNo">310</span>        }<a name="line.310"></a>
+<span class="sourceLineNo">311</span>        else<a name="line.311"></a>
+<span class="sourceLineNo">312</span>        {<a name="line.312"></a>
+<span class="sourceLineNo">313</span>            aGUI.println("I don't know what you mean...");<a name="line.313"></a>
+<span class="sourceLineNo">314</span>        }<a name="line.314"></a>
+<span class="sourceLineNo">315</span><a name="line.315"></a>
+<span class="sourceLineNo">316</span>    }<a name="line.316"></a>
+<span class="sourceLineNo">317</span><a name="line.317"></a>
+<span class="sourceLineNo">318</span>    /**<a name="line.318"></a>
+<span class="sourceLineNo">319</span>     * Retourne la liste des Rooms <a name="line.319"></a>
+<span class="sourceLineNo">320</span>     */<a name="line.320"></a>
+<span class="sourceLineNo">321</span>    public static HashMap&lt;String, Room&gt; getRooms()<a name="line.321"></a>
+<span class="sourceLineNo">322</span>    {<a name="line.322"></a>
+<span class="sourceLineNo">323</span>        return GameEngine.aList;<a name="line.323"></a>
+<span class="sourceLineNo">324</span>    }<a name="line.324"></a>
+<span class="sourceLineNo">325</span><a name="line.325"></a>
+<span class="sourceLineNo">326</span>    /**<a name="line.326"></a>
+<span class="sourceLineNo">327</span>     * Retourne le nombre de déplacements restants<a name="line.327"></a>
+<span class="sourceLineNo">328</span>     */<a name="line.328"></a>
+<span class="sourceLineNo">329</span>    public static int getLimit()<a name="line.329"></a>
+<span class="sourceLineNo">330</span>    {<a name="line.330"></a>
+<span class="sourceLineNo">331</span>        return aLimit;<a name="line.331"></a>
+<span class="sourceLineNo">332</span>    }<a name="line.332"></a>
+<span class="sourceLineNo">333</span>    <a name="line.333"></a>
+<span class="sourceLineNo">334</span>    /**<a name="line.334"></a>
+<span class="sourceLineNo">335</span>     * Permet de fixer le nombre de déplacements maximum que le joueur peut réaliser<a name="line.335"></a>
+<span class="sourceLineNo">336</span>     */<a name="line.336"></a>
+<span class="sourceLineNo">337</span>    public static void setLimit(final int pL)<a name="line.337"></a>
+<span class="sourceLineNo">338</span>    {<a name="line.338"></a>
+<span class="sourceLineNo">339</span>        aLimit = pL;<a name="line.339"></a>
+<span class="sourceLineNo">340</span>    }<a name="line.340"></a>
+<span class="sourceLineNo">341</span><a name="line.341"></a>
+<span class="sourceLineNo">342</span>    /**<a name="line.342"></a>
+<span class="sourceLineNo">343</span>     * Retourne le MovingNPC<a name="line.343"></a>
+<span class="sourceLineNo">344</span>     */<a name="line.344"></a>
+<span class="sourceLineNo">345</span>    public static MovingNPC getMovingNPC()<a name="line.345"></a>
+<span class="sourceLineNo">346</span>    {<a name="line.346"></a>
+<span class="sourceLineNo">347</span>        return aJuju;<a name="line.347"></a>
+<span class="sourceLineNo">348</span>    }<a name="line.348"></a>
+<span class="sourceLineNo">349</span><a name="line.349"></a>
+<span class="sourceLineNo">350</span>}<a name="line.350"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=pName
+comment0.target=MovingNPC(java.lang.String)
+comment0.text=\r\n\ Constructeur\ avec\ le\ nom\ du\ NPC\ h\u00E9rit\u00E9\ du\ param\u00E8tre\ de\ NPC\r\n
+comment1.params=
+comment1.target=void\ moveNPC()
+comment1.text=\r\n\ Proc\u00E9dure\ qui\ permet\ au\ PNJ\ de\ se\ d\u00E9placer\ entre\ les\ salles\ adjacentes\ \r\n
+numComments=2
