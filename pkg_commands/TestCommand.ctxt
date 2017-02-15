@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.params=pPlayer
+comment0.target=boolean\ execute(pkg_engine.Player)
+comment0.text=\r\n\ Proc\u00E9dure\ qui\ permet\ de\ tester\ les\ commandes\ du\ jeu\r\n
+numComments=1

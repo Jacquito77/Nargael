@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.params=
+comment0.target=CommandWords()
+comment0.text=\r\n\ Constructeur\ par\ defaut\r\n
+comment1.params=pString
+comment1.target=boolean\ isCommand(java.lang.String)
+comment1.text=\r\n\ Verifie\ si\ une\ String\ donnee\ fait\ partie\ des\ commandes\ valides.\ \r\n\ @param\ pString\ la\ String\ a\ tester\r\n\ @return\ true\ si\ pString\ est\ une\ comande\ valide,\ false\ sinon\r\n
+comment2.params=
+comment2.target=java.lang.String\ getCommandList()
+comment2.text=\r\n\ Permet\ d'obtenir\ la\ liste\ des\ commandes\r\n\ Retourne\ chaque\ commande\ suppl\u00E9mentaire\ ajout\u00E9e\r\n
+comment3.params=pCommandW
+comment3.target=CommandWord\ getCommandWord(java.lang.String)
+comment4.params=pCommandWord
+comment4.target=Command\ getCommand(CommandWord)
+numComments=5
