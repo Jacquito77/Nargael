@@ -1,6 +1,0 @@
-go west
-go south
-go east
-go up
-look
-take sword
