@@ -21,7 +21,7 @@ public class TransporterRoom extends Room
     }
    
      /**
-     * Retourne une Room alÃ©atoire
+     * Retourne une Room aléatoire
      */
     @Override
     public Room getExit(final String pDirection)
