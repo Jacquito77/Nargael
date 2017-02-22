@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=pCommandString
+comment0.target=CommandWord(java.lang.String)
+comment0.text=\r\n\ Constructeur\ de\ la\ classe\ avec\ une\ String\ pass\u00E9e\ en\ param\u00E8tre\r\n
+comment1.params=
+comment1.target=java.lang.String\ toString()
+comment1.text=\r\n\ \ Fonction\ qui\ retourne\ la\ String\ associ\u00E9e\ \u00E0\ la\ commande\r\n
+numComments=2
