@@ -47,6 +47,7 @@ public class CommandWords
         this.aCommands.put(CommandWord.TALK, new TalkCommand());
         this.aCommands.put(CommandWord.SEARCH, new SearchCommand());
         this.aCommands.put(CommandWord.GIVE, new GiveCommand()); 
+        this.aCommands.put(CommandWord.SAVE, new SaveCommand("")); 
     } // CommandWords()
 
     /**

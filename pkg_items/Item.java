@@ -7,35 +7,52 @@ package pkg_items;
  */
 public class Item
 {
-    private String aName;
-    private int aWeight;
-    private String aDescription;
-    private boolean aEatable;
+    private String name;
+    public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	private int weight;
+    private String description;
+    private boolean eatable;
     
+    public Item(){
+    	this.name = "";
+        this.weight = 0;
+        this.description = "";
+    }
    
     /**
      * Constructeur naturel de la classe Item
      */public Item(final String pName, final int pWeight, final String pDescription)
     {
-       this.aName = pName;
-       this.aWeight = pWeight;
-       this.aDescription = pDescription;
+       this.name = pName;
+       this.weight = pWeight;
+       this.description = pDescription;
     }
    
     public Item(final String pName, final int pWeight, final String pDescription, final boolean pEatable)
     {
-       this.aName = pName;
-       this.aWeight = pWeight;
-       this.aDescription = pDescription;
-       this.aEatable = pEatable;
+       this.name = pName;
+       this.weight = pWeight;
+       this.description = pDescription;
+       this.eatable = pEatable;
     }
     
     /**
      * Accesseur qui permet de retourner le nom d'un Item
      */
-    public String getItemName()
+    public String getName()
     {
-        return this.aName;
+        return this.name;
     }
     
     /**
@@ -43,23 +60,23 @@ public class Item
      */
     public int getWeight()
     {
-        return this.aWeight;
+        return this.weight;
     }
     
     /**
      * Accesseur qui permet de retourner la description d'un Item
      */
-    public String getItemDescription()
+    public String getDescription()
     {
-        return this.aDescription + "(" + this.aWeight + ")";
+        return this.description + "(" + this.weight + ")";
     }
     
     /**
      * Fonction booléenne qui indique si l'item est mangeable ou non
      */
-    public boolean isEatable()
+    public boolean getEatable()
     {
-        return this.aEatable;
+        return this.eatable;
     }
     
     /**
@@ -67,6 +84,6 @@ public class Item
      */
     public void setEatable (final boolean pEatable)
     {
-        this.aEatable = pEatable;
+        this.eatable = pEatable;
     }
 }

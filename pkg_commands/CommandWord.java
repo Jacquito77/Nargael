@@ -23,8 +23,9 @@ public enum CommandWord
   	RANDOM("random"), 
   	TALK("talk"),
   	GIVE("give"),
-  	SEARCH("search");
-
+  	SEARCH("search"),
+	SAVE("save");
+	
  	private String aCommandString;
     
  

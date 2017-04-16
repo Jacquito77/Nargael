@@ -311,22 +311,33 @@ public class GameEngine
         Item vArmory = new Item("Armory", 1200, "It's an armory, lol", false);
         Item vBeer = new Item("Beer", 50, "A big beer stein, like you love!", true);
         Item vMagicCookie = new Item("Magic_Cookie", 10, "A strange light shine from this cookie", true);
-        
-        Beamer vBeamer = new Beamer("Beamer", 50, "An item to teleport yourself");
-        Item vDrawer = new Item("Drawer", 100, "A drawer, it seems possible to pull it", false);
-        Item vStraw = new Item("Straw", 9999, "A stack of straw, maybe you could try to search in it", false);
+        Beamer vBeamer = new Beamer("Beamer", 50, "An item to teleport yourself");        
         Item vAxe = new Item("Axe", 450, "A short sharped and heavy black axe", false);
         Item vCertificate = new Item("Certificate", 1, "A certificate that attests the non-rarity of the leather", false);
         Item vKnob = new Item("Knob", 10, "A knob", false);
-        
         Item vLeather2 = new Item("Leather", 30, "Leather", false);
-        
         Item vFruit = new Item("Devil Fruit", 40, "A fruit with the evil's aura", true);
+        Item vPotion = new Item("Aura Potion", 10, "Potion that will increase your Aura", true);
+        Item vKey = new Item("Key", 3, "A key, maybe it could open some way to a treasure ?", false);
+        Item vChest = new Item("Chest", 500, "A chest, try to find a key that would fit it !", false);
+        Item vFeather = new Item("Feather", 1, "A feather, no one could say from wich bird it came from", false);
+        Item vFragment = new Item("Sword Fragment", 40, "A sword fragment, collect them all to upgrade", false);
+        Item vRing = new Item("Ring", 5, "A ring", false);
+        Item vNecklace = new Item("Necklace", 7, "A necklace", false);
+        Item vScroll = new Item("Ancient Scroll", 5, "An ancient scroll, you can't read a single line of it", false);
+        Item vRune = new Item("Rune", 10, "An ancient rune, if you eat it, you", true);
+        Item vTalisman = new Item("Talisman", 8, "A talisman", false);
+        Item vStraw = new Item("Straw", 9999, "A stack of straw, maybe you could try to 'search' in it", false);
+        Item vBracken = new Item("Bracken", 9999, "A bunch of bracken, maybe you could try to 'search' in it", false);
+        Item vStone = new Item("Stone", 9999, "A stone, maybe you could try to 'search' behind it", false);
+        Item vDrawer = new Item("Drawer", 9999, "An old drawer, maybe you could try to 'search' in it", false);
+        
+        
         
         NPC vBourgeois = new NPC("Bourgeois") {
             public boolean onGive (final Item pItem) 
             {
-                if (pItem.getItemName().equals("Certificate")) {
+                if (pItem.getName().equals("Certificate")) {
                     aGUI.println ("[Bourgeois says:] This leather isn't rare at all, then, take it !"); 
                     aGUI.println ("The Bourgeois gave you Leather"); 
                     aPlayer.getInventory().addItem("Leather", vLeather2);
@@ -340,12 +351,12 @@ public class GameEngine
         NPC vDurothan = new NPC("Durothan") {
             public boolean onGive (final Item pItem) 
             {
-                if (pItem.getItemName() == "Fosse Burger") {
+                if (pItem.getName() == "Fosse Burger") {
                     aGUI.println ("[Durothan says:] Mhhh... What a wonderful burger."); 
                     ///
                     return true; 
                 }
-                 if (pItem.getItemName() == "Knob") {
+                 if (pItem.getName() == "Knob") {
                     aGUI.println ("[Durothan says:] Mhhh... I will craft your Sword with the Blade I just crafted"); 
                     ///
                     aGUI.println ("YOU HAVE WON, CONGRATULATIONS");
@@ -371,7 +382,7 @@ public class GameEngine
         NPC vHina = new NPC("Hina"){
             public boolean onGive (final Item pItem) 
             {
-                if (pItem.getItemName().equals("Leather") || pItem.getItemName().equals("Leather")) {
+                if (pItem.getName().equals("Leather") || pItem.getName().equals("Leather")) {
                     aGUI.println ("[Hina says:] Let me just... Okay, take this knob."); 
                     aGUI.println ("Hina gave you a Knob, go back and talk to Durothan to win the game !");
                     
@@ -387,7 +398,7 @@ public class GameEngine
         NPC vKoh = new NPC("Koh"){
             public boolean onGive (final Item pItem) 
             {
-                if (pItem.getItemName().equals("Leather") || pItem.getItemName().equals("Leather")) {
+                if (pItem.getName().equals("Leather") || pItem.getName().equals("Leather")) {
                     aGUI.println ("[Hina says:] Let me just... Okay, take this knob."); 
                     aGUI.println ("Hina gave you a Knob, go back and talk to Durothan to win the game !");
                     
@@ -467,7 +478,7 @@ public class GameEngine
     /**
      * Retourne la liste des Rooms 
      */
-    public HashMap<String, Room> getRooms()
+    public static HashMap<String, Room> getRooms()
     {
         return aList;
     }

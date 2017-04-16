@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_72" class="java.beans.XMLDecoder">
+ <object class="pkg_items.Item">
+  <void property="description">
+   <string>A knob(10)</string>
+  </void>
+  <void property="name">
+   <string>Knob</string>
+  </void>
+  <void property="weight">
+   <int>10</int>
+  </void>
+ </object>
+</java>

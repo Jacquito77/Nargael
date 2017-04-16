@@ -63,7 +63,7 @@ public class ItemList
         
             for(String vS : vKeys)
             {
-                vItemString+= "There is a " + this.aList.get(vS).getItemName() + " \n";
+                vItemString+= "There is a " + this.aList.get(vS).getName() + " \n";
             }
 
             return vItemString;
