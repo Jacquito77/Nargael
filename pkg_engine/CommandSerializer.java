@@ -1,6 +1,5 @@
 package pkg_engine;
 
-import pkg_rooms.TransporterRoom;  
 import pkg_commands.Command;  
 import pkg_commands.Parser; 
 import pkg_items.Item;
@@ -9,8 +8,10 @@ import pkg_rooms.NPC;
 import pkg_rooms.NPCList;
 import pkg_rooms.MovingNPC;
 
+import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
