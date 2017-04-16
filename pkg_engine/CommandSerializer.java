@@ -17,6 +17,13 @@ import java.io.IOException;
 
 public class CommandSerializer {
 
+	static Object fromString(String str) {
+	    XMLDecoder d = new XMLDecoder(new ByteArrayInputStream(str.getBytes()));
+	    Object obj = (Object) d.readObject();
+	    d.close();
+	    return obj;
+	}
+	
 	public static void serialize(String save) throws IOException {
 		XMLEncoder encoder = null;
 		File f = new File("test/test.xml");
@@ -27,7 +34,7 @@ public class CommandSerializer {
 		
 		try {
 			encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("test/test.xml")));
-			encoder.writeObject(save);
+			encoder.writeObject(fromString(save));
 			encoder.flush();
 		} catch (final java.io.IOException e) {
 			e.printStackTrace();
