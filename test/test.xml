@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_72" class="java.beans.XMLDecoder">
- <string></string>
+ <object class="pkg_engine.SaveText"/>
 </java>

@@ -1,6 +1,5 @@
 package pkg_commands;
 import pkg_engine.Player;
-import pkg_engine.UserInterface;
 import pkg_engine.GameEngine;
 /**
  * Write a description of class ItemsCommand here.

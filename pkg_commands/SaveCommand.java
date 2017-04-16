@@ -1,12 +1,9 @@
 package pkg_commands;
 
 import pkg_engine.Player;
-import pkg_engine.GameEngine;
-import pkg_engine.Audio2;
 import pkg_engine.CommandSerializer;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Write a description of class QuitCommand here.
@@ -26,6 +23,7 @@ public class SaveCommand extends Command {
 
 @Override public boolean execute(final Player pPlayer)
 {
+
       CommandSerializer seri = new CommandSerializer();
       try {
 		seri.serialize(save);

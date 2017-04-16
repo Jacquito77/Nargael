@@ -13,8 +13,6 @@ public class Game
 {
     private UserInterface aGUI;
     private GameEngine aGE;
-    private Player aPlayer;
-
     /**
      * Create the game and initialise its internal map.
      */
@@ -22,7 +20,7 @@ public class Game
     {
         aGE = new GameEngine();
         aGUI = new UserInterface(aGE);
-        aPlayer = new Player();
+        new Player();
         aGE.setGUI(aGUI);
     }
     

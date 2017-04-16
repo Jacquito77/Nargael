@@ -1,7 +1,5 @@
 package pkg_commands;
 import java.util.StringTokenizer;
-
-import pkg_engine.UserInterface;
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -21,7 +19,6 @@ import pkg_engine.UserInterface;
 public class Parser 
 {
     private CommandWords aValidCommands;  // (voir la classe CommandWords)
-    private UserInterface aGUI;
     /**
      * Constructeur par defaut qui cree les 2 objets prevus pour les attributs
      */

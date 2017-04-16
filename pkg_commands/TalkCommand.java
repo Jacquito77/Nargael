@@ -2,10 +2,7 @@ package pkg_commands;
 
 import pkg_rooms.NPC;
 import pkg_engine.Player;
-import pkg_engine.UserInterface;
 import pkg_engine.GameEngine;
-import pkg_rooms.Room;
-import pkg_rooms.NPCList;
 
 
 /**

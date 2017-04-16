@@ -1,13 +1,7 @@
 package pkg_commands;
 import pkg_engine.*;
-import pkg_engine.UserInterface;
 import pkg_engine.GameEngine;
 import pkg_rooms.Room;
-import pkg_rooms.MovingNPC;
-
-import java.util.Set;
-import java.util.Collection;
-import java.util.HashMap;
 
 /**
  * Abstract class GoCommand - write a description of the class here
@@ -17,9 +11,6 @@ import java.util.HashMap;
  */
 public class GoCommand extends Command
 {
-    private Audio2 aAudio2;
-    private Room aR;
-    
     /**
      *  Fonction booléenne execute de la Classe qui permet d'exécuter la commande associé au nom de celle-ci
      */

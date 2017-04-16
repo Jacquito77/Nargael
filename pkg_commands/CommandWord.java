@@ -7,7 +7,7 @@ package pkg_commands;
  */
 public enum CommandWord
 {
-    //GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), LOOK("look"), EAT("eat"), BACK("back"), TEST("test"), TAKE("take"), DROP("drop"), ITEMS("items"), TELEPORT("teleport"), SEARCH("search"), RANDOM("random");;
+    //GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), LOOK("look"), EAT("eat"), BACK("back"), TEST("test"), TAKE("take"), DROP("drop"), ITEMS("items"), TELEPORT("teleport"), SEARCH("search"), RANDOM("random");
     GO("go"),
     QUIT("quit"),   
     HELP("help"),
