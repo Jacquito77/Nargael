@@ -57,6 +57,7 @@ public class Parser
         Command vCommand = this.aValidCommands.getCommand(vCommandWord);
         if(vCommand != null)
         {
+        	vCommand.setWord(vWord1+" "+vWord2);
             vCommand.setSecondWord(vWord2);
         }
         return vCommand;

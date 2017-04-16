@@ -11,6 +11,7 @@ public abstract class Command
 
     //private CommandWord aCommandWord;
     private String aSecondWord;
+    private String aWord;
 
     /** 
      * Initialise les mots de commandes, à savoir le premier et le deuxième 
@@ -60,4 +61,15 @@ public abstract class Command
 
     public abstract boolean execute(Player pPlayer)
     ;
+
+	public String getWord() {
+		return aWord;
+	}
+
+	public void setWord(String vWord1) {
+		String vWord = null;
+		this.aWord = vWord;
+	}
+
+
 }
