@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class CommandSerializer {
 
-	public static void serialize(Object item) throws IOException {
+	public static void serialize(String save) throws IOException {
 		XMLEncoder encoder = null;
 		File f = new File("test/test.xml");
         if(!f.exists())
@@ -27,7 +27,7 @@ public class CommandSerializer {
 		
 		try {
 			encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("test/test.xml")));
-			encoder.writeObject(item);
+			encoder.writeObject(save);
 			encoder.flush();
 		} catch (final java.io.IOException e) {
 			e.printStackTrace();
