@@ -67,8 +67,7 @@ public abstract class Command
 	}
 
 	public void setWord(String vWord1) {
-		String vWord = null;
-		this.aWord = vWord;
+		this.aWord = vWord1;
 	}
 
 
