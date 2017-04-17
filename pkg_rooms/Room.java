@@ -2,9 +2,8 @@ package pkg_rooms;
 import java.util.HashMap;
 import java.util.Set;
 
-import pkg_items.ItemList;
 import pkg_items.Item;
-import pkg_engine.UserInterface;
+import pkg_items.ItemList;
 
 /**
  * Classe Room faisant partie intégrante du projet Zuul
@@ -13,15 +12,9 @@ public class Room
 {
     private String aDescription;
     private HashMap<String, Room> aExits;
-    //     private HashMap<String, Item> aItems;
-    private NPC aNPC;
     private NPCList aNPCList;
     private ItemList aItemList;
     private String aImageName;
-    //     private Item aItem;
-    private String aName;
-    private UserInterface aGUI;
-
     /**
      * Constructeur de la classe
      */

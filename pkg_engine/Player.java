@@ -1,14 +1,10 @@
 package pkg_engine;
 
-import java.util.HashMap;
 import java.util.Stack;
-import java.util.Scanner;
-import java.io.File;
-import javax.swing.JButton;
 
-import pkg_rooms.Room;
 import pkg_items.Item;
 import pkg_items.ItemList;
+import pkg_rooms.Room;
 /**
  * Write a description of class Player here.
  * 
@@ -18,8 +14,6 @@ import pkg_items.ItemList;
 public class Player
 {
     private Room aCurrentRoom;
-    private Room aBackRoom;
-    private Item aItem;
     private Stack<Room> aStack;
     private ItemList aInventory;
     private int aMaxWeight;

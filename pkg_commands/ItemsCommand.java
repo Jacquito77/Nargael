@@ -15,6 +15,9 @@ public class ItemsCommand extends Command
     @Override public boolean execute(final Player pPlayer)
     {
         GameEngine.aGUI.println(pPlayer.getInventoryList());
+        
+     
+        
         return false;
     }
 }

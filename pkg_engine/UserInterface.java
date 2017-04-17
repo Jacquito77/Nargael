@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
-import java.awt.image.*;
 
 /**
  * Décrivez votre classe UserInterface ici.
@@ -13,7 +12,6 @@ import java.awt.image.*;
  */
 public class UserInterface implements ActionListener
 {
-    private GameEngine aEngine;
     private JFrame myFrame;
     private JTextField aEntryField;
     private JTextArea log;
@@ -27,7 +25,6 @@ public class UserInterface implements ActionListener
      */
     public UserInterface (GameEngine aGE)
     {
-        aEngine = aGE;
         createGUI();
     }
 
@@ -126,8 +123,6 @@ public class UserInterface implements ActionListener
 
         JPanel panel = new JPanel();
         JPanel panel2 = new JPanel();
-        JPanel panel3 = new JPanel();
-
         JPanel left = new JPanel();
         image = new JLabel();
 
@@ -192,35 +187,35 @@ public class UserInterface implements ActionListener
     {
         
         if(e.getActionCommand().equals("Quit"))
-            aEngine.interpretCommand("quit");
+            GameEngine.interpretCommand("quit");
 
         else if(e.getActionCommand().equals("Look"))
-            aEngine.interpretCommand("look");
+            GameEngine.interpretCommand("look");
 
         else if(e.getActionCommand().equals("Back"))
-            aEngine.interpretCommand("back");
+            GameEngine.interpretCommand("back");
 
         else if(e.getActionCommand().equals("Help"))
-            aEngine.interpretCommand("help");
+            GameEngine.interpretCommand("help");
 
         else if(e.getActionCommand().equals("North"))
-            aEngine.interpretCommand("go north");
+            GameEngine.interpretCommand("go north");
 
         else if(e.getActionCommand().equals("East"))
-            aEngine.interpretCommand("go east");
+            GameEngine.interpretCommand("go east");
 
         else if(e.getActionCommand().equals("West"))
-            aEngine.interpretCommand("go west");
+            GameEngine.interpretCommand("go west");
 
         else if(e.getActionCommand().equals("South"))
-            aEngine.interpretCommand("go south");
+            GameEngine.interpretCommand("go south");
         
         else if(e.getActionCommand().equals("Up"))
-            aEngine.interpretCommand("go up");
+            GameEngine.interpretCommand("go up");
         
         else if(e.getActionCommand().equals("Down"))
-            aEngine.interpretCommand("go down");
-            
+            GameEngine.interpretCommand("go down");
+        
         else processCommand();
     }
 
@@ -230,11 +225,10 @@ public class UserInterface implements ActionListener
      */
     private void processCommand()
     {
-        boolean vFinished = false;
         String input = aEntryField.getText();
         aEntryField.setText("");
 
-        aEngine.interpretCommand(input);
+        GameEngine.interpretCommand(input);
     }
 
 }

@@ -13,7 +13,7 @@ import java.lang.Runnable;
  */
 public class SoundManager implements Runnable
 { 
-    static Class class__ = SoundManager.class; 
+    static Class<SoundManager> class__ = SoundManager.class; 
     private final static int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb 
      
     String sound; 
@@ -53,7 +53,6 @@ public class SoundManager implements Runnable
         } 
   
         if (auline.isControlSupported(FloatControl.Type.PAN)) { 
-            FloatControl pan = (FloatControl) auline.getControl(FloatControl.Type.PAN); 
         } 
         auline.start(); 
         int nBytesRead = 0; 

@@ -40,6 +40,8 @@ public class DropCommand extends Command
 
            GameEngine.aGUI.println("You have dropped "+ vItemName);
         }
+  
+       
         return false;
     }
 }

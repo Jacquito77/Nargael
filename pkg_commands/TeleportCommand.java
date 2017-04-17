@@ -49,6 +49,8 @@ public class TeleportCommand extends Command
             vBeamer.setCharged(true);
             vBeamer.setSavedRoom(pPlayer.getCurrentRoom());
         }
+ 
+        
         return false;
     }
 }

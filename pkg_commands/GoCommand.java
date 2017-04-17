@@ -23,14 +23,14 @@ public class GoCommand extends Command
         }  
 
         
-        String vDirection = this.getSecondWord();   
+        String vDirection = this.getSecondWord();  
         Room nextRoom = pPlayer.getCurrentRoom().getExit(vDirection);
-
+        System.out.println(nextRoom);
         if (nextRoom == null)  
             GameEngine.aGUI.println("There is no door!");  
         else {  
             pPlayer.move(nextRoom); 
-
+            
             
             int vLimit = GameEngine.getLimit();
             vLimit = vLimit -1;
@@ -69,6 +69,8 @@ public class GoCommand extends Command
 //                 aAudio2.playLoop("assembly.wav");
 //                  }
                  
+     
+        
         return false;
     }
 }

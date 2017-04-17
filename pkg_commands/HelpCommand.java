@@ -17,6 +17,8 @@ public class HelpCommand extends Command
         GameEngine.aGUI.println ("Your commandwords are :");
         GameEngine.aGUI.println (GameEngine.aParser.showCommands());
         GameEngine.aGUI.println ("First, try to speak to Durothan at the Forge !");
+       
+       
         return false;
     }//aide au joueur
 }

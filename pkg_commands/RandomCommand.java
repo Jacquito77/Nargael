@@ -41,6 +41,8 @@ public class RandomCommand extends Command
             GameEngine.aGUI.println("You changed the seed.");
         }
 
+   
+        
         return false;
     }
 }

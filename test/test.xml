@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_72" class="java.beans.XMLDecoder">
- <object class="pkg_engine.SaveText"/>
+ <object class="pkg_engine.SaveText" id="SaveText0">
+  <void class="pkg_engine.SaveText" method="getField">
+   <string>txt</string>
+   <void method="set">
+    <object idref="SaveText0"/>
+    <string>eat Burger</string>
+   </void>
+  </void>
+ </object>
 </java>

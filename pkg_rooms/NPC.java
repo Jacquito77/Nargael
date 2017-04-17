@@ -1,11 +1,8 @@
 package pkg_rooms;
 
-import java.util.HashMap;
-import java.util.Set;
-import pkg_rooms.Room;
-import pkg_items.ItemList;
+import pkg_engine.GameEngine;
 import pkg_items.Item;
-import pkg_engine.GameEngine; 
+import pkg_items.ItemList; 
 
 /**
  * Write a description of class Character here.

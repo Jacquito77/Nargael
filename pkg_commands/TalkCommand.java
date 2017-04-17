@@ -37,6 +37,7 @@ public class TalkCommand extends Command
             vNPC.onTalk(); 
         }
         
+        
         return false;
     }
 }

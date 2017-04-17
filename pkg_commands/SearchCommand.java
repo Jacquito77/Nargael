@@ -39,6 +39,7 @@ public class SearchCommand extends Command
             pPlayer.addItemPlayer("Leather", vLeather);
             GameEngine.aGUI.println("You have found Leather !");
         }
+     
         return false;
     }
 }

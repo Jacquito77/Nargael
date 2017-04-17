@@ -17,6 +17,8 @@ public class LookCommand extends Command
     @Override public boolean execute(final Player pPlayer)
     {
         GameEngine.aGUI.println(pPlayer.getCurrentRoom().getLongDescription());
+        
+        
         return false;
     }//permet d'observer l'environnement dans lequel le joueur se trouve
 }

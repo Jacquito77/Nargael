@@ -42,6 +42,9 @@ public class TakeCommand extends Command
             GameEngine.aGUI.println("You have taken "+ vItemName);
         }
         
+        SaveCommand test = new SaveCommand(this.getWord()); 
+        test.execute(pPlayer);
+        
         return false;
     }
 }

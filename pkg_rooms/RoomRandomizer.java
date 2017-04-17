@@ -1,5 +1,6 @@
 package pkg_rooms;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.Random;
 
@@ -75,10 +76,9 @@ public class RoomRandomizer
 
         Set<String> keys = pRooms.keySet();
 
-        for(String key : keys)
-        {
-            vSize++;
-        }
+        for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
+			vSize++;
+		}
 
         return vSize;
     }

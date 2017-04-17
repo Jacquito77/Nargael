@@ -1,10 +1,7 @@
 package pkg_rooms;
 
-import java.util.Random;
 import java.util.HashMap;
 import java.util.Set;
-
-import pkg_rooms.Room;
 
 /**
  * Write a description of class MovingNPC here.

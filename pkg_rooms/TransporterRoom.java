@@ -10,8 +10,6 @@ import pkg_engine.GameEngine;
  */
 public class TransporterRoom extends Room
 {
-    private String aSavedRoom;
-    
     /**
      * Constructeur
      */
@@ -35,7 +33,6 @@ public class TransporterRoom extends Room
      */
     public void setSavedRoom(final String pString)
     {
-        this.aSavedRoom = pString;
     }
 
 

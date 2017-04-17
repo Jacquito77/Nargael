@@ -18,6 +18,9 @@ public class QuitCommand extends Command
     {
         GameEngine.aGUI.println("Thank you for playing.  Good bye.");
         GameEngine.aGUI.enable(false);
+        
+  
+        
         return false;
     }
         
