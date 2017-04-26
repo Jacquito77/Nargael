@@ -56,6 +56,10 @@ public class EatCommand extends Command
             GameEngine.aGUI.println("You have drunk some beer, that was delicous !");
         }
         
+        SaveCommand test = new SaveCommand(this.getWord()); 
+                test.execute(pPlayer);
+                
+                
         
         return false;
     }

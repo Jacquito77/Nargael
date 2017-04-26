@@ -36,7 +36,8 @@ public class GameEngine
      */
     public GameEngine()
     {
-        setPlayer(new Player());
+    	aPlayer = new Player();
+        
         aList = new HashMap<String, Room>();
 //         aList1 = new HashMap<String, Room>();
 //         aList2 = new HashMap<String, Room>();
@@ -73,8 +74,8 @@ public class GameEngine
         aGUI.println ("Welcome to MorneFosse, may the force be with you !");
         aGUI.println ("Write 'help' if it's your first travel in this place!");
         aGUI.println ("Don't forget to complete your quest before the evening");
-        aGUI.print(getPlayer().getCurrentRoom().getLongDescription());
-        aGUI.showImage(getPlayer().getCurrentRoom().getImageName());
+        aGUI.print(aPlayer.getCurrentRoom().getLongDescription());
+        aGUI.showImage(aPlayer.getCurrentRoom().getImageName());
     } // affiche un message de bienvenue une seule fois au début
 
     /**
@@ -230,7 +231,7 @@ public class GameEngine
 
         //3 initialiser le lieu courant
 
-        GameEngine.getPlayer().setCurrentRoom(vResidential_District);
+        this.aPlayer.setCurrentRoom(vResidential_District);
 
         //4 Liste les salles dans la HashMap
         aList.put("Residential District",vResidential_District);
@@ -327,7 +328,7 @@ public class GameEngine
                 if (pItem.getName().equals("Certificate")) {
                     aGUI.println ("[Bourgeois says:] This leather isn't rare at all, then, take it !"); 
                     aGUI.println ("The Bourgeois gave you Leather"); 
-                    getPlayer().getInventory().addItem("Leather", vLeather2);
+                    aPlayer.getInventory().addItem("Leather", vLeather2);
                     return true; 
                 } else {
                     aGUI.println ("[Bourgeois says:] I won't let you my Leather, it is so rare "); 
@@ -373,8 +374,8 @@ public class GameEngine
                     aGUI.println ("[Hina says:] Let me just... Okay, take this knob."); 
                     aGUI.println ("Hina gave you a Knob, go back and talk to Durothan to win the game !");
                     
-                    getPlayer().getInventory().addItem("Knob", vKnob);
-                    getPlayer().getInventory().itemTaken("Leather");
+                    aPlayer.getInventory().addItem("Knob", vKnob);
+                    aPlayer.getInventory().itemTaken("Leather");
                     return true; 
                 } else {
                     aGUI.println ("[Hina says:] I don't need this !"); 
@@ -389,8 +390,8 @@ public class GameEngine
                     aGUI.println ("[Hina says:] Let me just... Okay, take this knob."); 
                     aGUI.println ("Hina gave you a Knob, go back and talk to Durothan to win the game !");
                     
-                    getPlayer().getInventory().addItem("Knob", vKnob);
-                    getPlayer().getInventory().itemTaken("Leather");
+                    aPlayer.getInventory().addItem("Knob", vKnob);
+                    aPlayer.getInventory().itemTaken("Leather");
                     return true; 
                 } else {
                     aGUI.println ("[Koh says:] I don't need this !"); 
@@ -453,7 +454,7 @@ public class GameEngine
 
         if (vCommand != null)
         {
-            vCommand.execute(getPlayer());
+            vCommand.execute(aPlayer);
         }
         else
         {

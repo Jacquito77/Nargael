@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
+import java.awt.image.*;
 
 /**
  * Décrivez votre classe UserInterface ici.

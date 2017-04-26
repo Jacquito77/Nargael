@@ -28,7 +28,7 @@ public class MovingNPC extends NPC
         int vI = 0;
         int vO = 0;
         Room vOut = null;
-        vO = RoomRandomizer.generateRandomNumber(0,RoomRandomizer.countRooms(vExits));
+        vO = RoomRandomizer.generateRandomNumber(0, RoomRandomizer.countRooms(vExits));
         Set<String> keys = vExits.keySet();
         for(String key : keys)
         {

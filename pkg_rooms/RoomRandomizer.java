@@ -72,14 +72,6 @@ public class RoomRandomizer
      */
     public static int countRooms(final HashMap<String,Room> pRooms)
     {
-        int vSize = 0;
-
-        Set<String> keys = pRooms.keySet();
-
-        for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
-			vSize++;
-		}
-
-        return vSize;
+        return pRooms.size();
     }
 }
